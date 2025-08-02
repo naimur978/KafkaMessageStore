@@ -1,11 +1,12 @@
 
 
 
+
 ## What is this project?
 
-Kafka is asynchronous, which means it can handle many tasks at once and does not wait for one task to finish before starting another. In a typical app without Kafka, everything is synchronous. For example, when you save a message, you might have to wait for the database to finish before doing anything else. With Kafka, you can save the message and at the same time send it to Kafka so other things can happen in the background, like sending notifications or running analytics, without making the user wait.
+I started this project because I wanted to put into practice what I learned about Kafka. After reading and watching tutorials about how Kafka can help build scalable, event-driven systems, I thought: why not try it out with a simple message storing app? The idea came to me when I realized that most apps just save data directly to a database, but with Kafka, you can make things more flexible and powerful by letting different parts of your system react to new messages in real time or in the background.
 
-This project is like a smart message box. When someone sends a message, it is saved right away in a database (MongoDB) so nothing is lost. At the same time, the message is sent to Kafka, which lets you handle background tasks or future features easily. This setup shows how you can mix a regular database with an event system like Kafka to make your app more flexible, reliable, and ready for bigger things in the future.
+So, this project is my way of experimenting with Kafka. It saves messages to MongoDB right away, but also sends them to Kafka so I (or any other service) can do more things with those messages later—like analytics, notifications, or anything else. It's a hands-on implementation of the concepts I learned about Kafka and event-driven architecture.
 
 # Folder Architecture
 
