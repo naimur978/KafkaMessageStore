@@ -1,10 +1,12 @@
 const { consumer } = require('./client');
 const Message = require('../models/Message');
 
-// Start Kafka consumer to save messages to MongoDB
 (async () => {
-    await consumer.connect();
-    await consumer.subscribe({ topic: 'messages', fromBeginning: true });
+        await consumer.connect();
+        console.log(`[CONSUMER] Connected to broker(s)`);
+        const topic = 'messages';
+        await consumer.subscribe({ topic, fromBeginning: true });
+        console.log(`[CONSUMER] Subscribed to topic: ${topic}`);
     await consumer.run({
         eachMessage: async ({ message }) => {
             try {
@@ -13,10 +15,12 @@ const Message = require('../models/Message');
                 const exists = await Message.findById(data.id);
                 if (!exists) {
                     await Message.create({ _id: data.id, text: data.text, createdAt: data.createdAt });
-                    console.log('Consumed and saved message:', data);
+                    console.log('[CONSUME] Consumed and saved message:', data);
+                } else {
+                    console.log('[CONSUME] Duplicate message ignored:', data);
                 }
             } catch (err) {
-                console.error('Error consuming message:', err);
+                console.error('[CONSUME] Error consuming message:', err);
             }
         }
     });
